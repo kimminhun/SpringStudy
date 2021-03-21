@@ -59,8 +59,44 @@
 	</div>
 <!-- /.row -->
 </div>
+<script type="text/javascript" src="/resources/js/reply.js"></script>
+<script>
+console.log("===========");
+console.log("JS TEST");
+
+var bnoValue='<c:out value="${board.bno}"/>';
+//for replyService add test
+replyService.add(
+		{reply:"JS TEST",replyer:"tester",bno:bnoValue},
+		function(result){
+			alert("RESULT: "+result);
+		}
+		);
+replyService.getList{
+	{bno:bnoValue,page:1},
+	function(list){
+	for (var i = 0, len=list.length||0 ; i<len; i++) {
+		console.log(list[i]);
+	}
+	}};
+	
+	replyService.remove(3,function(count){
+		console.log(count);
+		if(count==="success"){
+			alert("REMOVED");
+		}
+	}.function(err){
+		alert('ERROR....');
+	});
+	
+</script>
 
 <script type="text/javascript">
+	$(document).ready(function(){
+	
+		console.log(replyService);
+	});
+	
 	$(document).ready(function() {
 		var operForm = $("#operForm");
 		$("button[data-oper='modify']").on("click", function(e) {
@@ -73,5 +109,18 @@
 			operForm.submit();
 		});
 	});
+	
+	replyService.update({
+		rno : 3,
+		bno : bnoValue,
+		reply : "Modified Reply......"
+	},function(result){
+		alert("수정 완료...");
+	});
+	
+	replyService.get(3,function(data){
+		console.log(data);
+	});
 </script>
+
 <%@include file="../includes/footer.jsp"%>
