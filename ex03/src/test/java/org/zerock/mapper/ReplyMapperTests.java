@@ -79,4 +79,12 @@ public class ReplyMapperTests {
 	public void testMapper() {
 		log.info(mapper);
 	}
+	
+	@Test
+	public void testList2() {
+		Criteria cri=new Criteria(1,5);
+		List<ReplyVO> replies =mapper.getListWithPaging(cri, 257L);
+		
+		replies.forEach(reply->log.info(reply));
+	}
 }
